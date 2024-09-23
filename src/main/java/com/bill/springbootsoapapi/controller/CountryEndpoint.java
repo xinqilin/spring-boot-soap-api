@@ -1,8 +1,8 @@
 package com.bill.springbootsoapapi.controller;
 
 import com.bill.springbootsoapapi.dao.CountryDao;
-import com.bill.springbootsoapapi.model.Country;
-import com.bill.springbootsoapapi.model.CountryRequest;
+import com.bill.springbootsoapapi.model.GetCountryRequest;
+import com.bill.springbootsoapapi.model.GetCountryResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -25,11 +25,33 @@ public class CountryEndpoint {
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCountryRequest")
-    @ResponsePayload
-    public String getCountry(@RequestPayload CountryRequest request) {
+    public @ResponsePayload GetCountryResponse getCountry(@RequestPayload GetCountryRequest request) {
         log.info("request: {}", request);
-        return countryDao.findCountry(request.getName())
-                .map(Country::capital)
-                .orElse("Country not found");
+        GetCountryResponse response = new GetCountryResponse();
+        response.setCountry(countryDao.findCountry(request.getName()));
+
+        log.info("response: {}", response);
+        return response;
     }
+
+    //    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCountryRequest")
+//    @ResponsePayload
+//    public String getCountry(@RequestPayload  request) {
+//        log.info("request: {}", request);
+//        CountryRequest countryRequest = convertXmlToCountryRequest(request);
+//        return countryDao.findCountry(countryRequest.getName())
+//                .map(Country::capital)
+//                .orElse("Country not found");
+//    }
+
+//    private CountryRequest convertXmlToCountryRequest(String xmlRequest) {
+//        try {
+//            JAXBContext context = JAXBContext.newInstance(CountryRequest.class);
+//            Unmarshaller unmarshaller = context.createUnmarshaller();
+//            return (CountryRequest) unmarshaller.unmarshal(new StringReader(xmlRequest));
+//        } catch (JAXBException e) {
+//            log.error("Error converting XML to CountryRequest", e);
+//            throw new RuntimeException("Error converting XML to CountryRequest", e);
+//        }
+//    }
 }

@@ -6,7 +6,7 @@ SOAPAction: getCountryRequest
     <soapenv:Header/>
     <soapenv:Body>
         <gen:getCountryRequest>
-            <gen:name>Spain</gen:name>
+            <gen:name>法國</gen:name>
         </gen:getCountryRequest>
     </soapenv:Body>
 </soapenv:Envelope>

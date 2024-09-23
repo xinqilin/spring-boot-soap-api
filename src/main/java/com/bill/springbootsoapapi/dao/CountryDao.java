@@ -1,12 +1,12 @@
 package com.bill.springbootsoapapi.dao;
 
+import com.bill.springbootsoapapi.enums.Currency;
 import com.bill.springbootsoapapi.model.Country;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * @author Bill.Lin 2024/9/23
@@ -18,13 +18,17 @@ public class CountryDao {
 
     @PostConstruct
     public void initData() {
-        countries.put("Spain", new Country("Spain", 46704314, "Madrid"));
-        countries.put("Poland", new Country("Poland", 38186860, "Warsaw"));
-        countries.put("United Kingdom", new Country("United Kingdom", 63705000, "London"));
+        Country harryPotterI = new Country();
+        harryPotterI.setCapital("巴黎");
+        harryPotterI.setName("法國");
+        harryPotterI.setCurrency(Currency.EUR);
+        harryPotterI.setPopulation(198555);
+
+        countries.put(harryPotterI.getName(), harryPotterI);
     }
 
-    public Optional<Country> findCountry(String name) {
-        return Optional.ofNullable(countries.get(name));
+    public Country findCountry(String name) {
+        return countries.get(name);
     }
 
 
