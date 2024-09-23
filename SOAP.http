@@ -1,0 +1,12 @@
+POST http://localhost:8080/ws
+Content-Type: text/xml;charset=UTF-8
+SOAPAction: getCountryRequest
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gen="http://www.baeldung.com/springsoap/gen">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gen:getCountryRequest>
+            <gen:name>Spain</gen:name>
+        </gen:getCountryRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
